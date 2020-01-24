@@ -19,13 +19,13 @@ main(){
 	#echo "You selected $option"
 	case $option in
 		"Show Databases")
-			echo "run showDatabases.sh";;
+			./showDB.sh;;
 		"Create New Database")
-			echo "run createDB.sh";;
+			./createDB.sh ;;
 		"Use Database")
-			echo "run useDB.sh";;
+			./useDB.sh;;
 		"Delete Database")
-			echo "run deleteDB.sh";;
+			./deleteDB.sh;;
 	esac
 }
 
