@@ -2,6 +2,9 @@
 
 options=("Show Databases" "Create New Database" "Use Database" "Delete Database" "Quit")
 
+# an array to store existing databases
+declare -a DATABASES;
+
 select option in "${options[@]}"
 do
 	case $option in
