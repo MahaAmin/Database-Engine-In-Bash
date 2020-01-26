@@ -1,8 +1,8 @@
 #!/bin/bash
-# 
-DIR="/Databases"
+DIR="$(pwd)/Databases"
 if [ -d "$DIR" ] && [ "$(ls -A $DIR)" ]; then
   ls $DIR
 else 
     echo "No Databases to show"
 fi
+
