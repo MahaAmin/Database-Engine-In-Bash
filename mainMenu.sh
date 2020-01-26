@@ -2,13 +2,16 @@
 
 options=("Show Databases" "Create New Database" "Use Database" "Delete Database" "Quit")
 
+# an array to store existing databases
+declare -a DATABASES;
+
 select option in "${options[@]}"
 do
 	case $option in
-		"Show Databases") echo "Show Databases";;
-		"Create New Database") echo "Create New Database";;
-		"Use Database") echo "Use Database";;
-		"Delete Database") echo "Delete Database";;
+		"Show Databases") ./showDB.sh;;
+		"Create New Database") ./createDB.sh;;
+		"Use Database") ./useDB.sh;;
+		"Delete Database") ./deleteDB.sh;;
 		"Quit") break;;
 		*) echo "Invalid option $REPLY";;
 	esac
