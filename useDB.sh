@@ -6,11 +6,11 @@ useDB_main_menu(){
     select option in "${options[@]}"
     do
         case $option in
-            "Show Tables") ./showTables.sh;;
-            "Create New Table") ./createTable.sh;;
-            "Delete Table") ./deleteTable.sh;;
-            "Update Table") ./updateTable.sh;;
-            "Display Table") ./displayTable.sh;;
+            "Show Tables") . ./showTables.sh;;
+            "Create New Table") . ./createTable.sh;;
+            "Delete Table") . ./deleteTable.sh;;
+            "Update Table") . ./updateTable.sh;;
+            "Display Table") . ./displayTable.sh;;
             "Return To Main Menu") break;;
             *) echo "Invalid option $REPLY";;
         esac
@@ -23,6 +23,7 @@ read currDB;
 # check if database exists
 if [[ -d Databases/$currDB ]]
 then
+    export  currDB=Databases/$currDB;
     echo "$currDB is selected.";
     useDB_main_menu;
 else
