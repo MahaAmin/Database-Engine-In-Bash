@@ -2,7 +2,8 @@
 
 useDB_main_menu(){
     options=("Show Tables" "Create New Table" "Delete Table" "Update Table" "Display Table" "Return To Main Menu");
-
+     while [ "$option" != "Quit" ] 
+    do
     select option in "${options[@]}"
     do
         case $option in
@@ -11,9 +12,10 @@ useDB_main_menu(){
             "Delete Table") ./deleteTable.sh;;
             "Update Table") ./updateTable.sh;;
             "Display Table") ./displayTable.sh;;
-            "Return To Main Menu") break;;
+            "Return To Main Menu") ./mainMenu.sh;;
             *) echo "Invalid option $REPLY";;
         esac
+    done
     done
 }
 
