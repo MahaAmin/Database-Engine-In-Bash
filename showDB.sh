@@ -1,6 +1,6 @@
 #!/bin/bash
 # 
-DIR="/Databases"
+DIR="Databases"
 if [ -d "$DIR" ] && [ "$(ls -A $DIR)" ]; then
   ls $DIR
 else 
