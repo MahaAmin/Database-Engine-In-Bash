@@ -38,6 +38,22 @@ function validateTableName(){
     echo $valid;
 }
 
+
+function tableExists(){
+    currDB=$1;
+    tableName=$2;
+
+    valid=0     # valid;
+
+    if [[ -f $currDB/Data/$tableName ]]; then
+        printf "ERROR: Table already exists.";
+        echo "ERROR: Table already exists." >> log.out;
+        valid=1;    # not-valid
+    fi
+
+    echo $valid;
+}
+
 createColumns(){
     read -p "Enter column name: " colName;
     while [ "$colName" != "0" ]; 
@@ -58,6 +74,7 @@ createColumns(){
 read -p "Enter table name: " tableName;
 
 nameFlag=$(validateTableName "$tableName");
+tableExistsFlag=$(tableExists "$currDB" "$tableName");
 
 if [[ $nameFlag == 0 ]]; then
     echo "$nameFlag True";
@@ -65,15 +82,30 @@ else
     echo "$nameFlag False";
 fi
 
-if test -f "$currDB/$tableName"; then
-    echo "table already exists!";
+
+if [[ $tableExistsFlag == 0 ]]; then
+    echo "$tableExistsFlag True";
 else
-    if touch "$currDB/$tableName" 2> log.out; then
-        touch "$currDB/metadata.txt";
-        echo "$tableName created succesfully";
+    echo "$tableExistsFlag False";
+fi
+
+
+if [ $nameFlag == 0 ] && [ $tableExistsFlag == 0 ]; then
+    # create Data/tableName
+    if touch "$currDB/Data/$tableName" 2> log.out; then
+        echo "Empty table created sucessfully.";
     else
-        echo "Falied to create $tableName. Refer to log.out for more details."
+        echo "Falied to create table. Check log.out for more details.";
     fi
+
+    # create Metadata/tableName.metadata
+    if touch "$currDB/Metadata/$tableName.metadata" 2> log.out; then
+        echo "Metadata file created sucessfully.";
+    else
+        echo "Falied to create metadata. Check log.out for more details.";
+    fi
+else
+    echo "Can not create table. Check log.out for more details.";
 fi
 
 
