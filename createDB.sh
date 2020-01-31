@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # TO-HANDLE: User enter multiple names or name with spaces
-# TO-DO: when creating db create 2 sub-directories (Data, Metadata)
 
 echo "Enter Database Name: ";
 read newDB;
