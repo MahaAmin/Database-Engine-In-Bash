@@ -4,12 +4,6 @@
 
 options=("Show Databases" "Create New Database" "Use Database" "Delete Database" "Quit")
 
-# an array to store existing databases
-declare -a DATABASES;
-
-options=("Show Databases" "Create New Database" "Use Database" "Delete Database" "Quit")
-while [ "$option" != "Quit" ] 
-do
 select option in "${options[@]}"
 do
 	case $option in
@@ -20,5 +14,4 @@ do
 		"Quit") break;;
 		*) echo "Invalid option $REPLY";;
 	esac
-done
 done
