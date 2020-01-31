@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# TO-DO: re-print menu after selection --> while
+# TO-DO: fix quit option
 
 options=("Show Databases" "Create New Database" "Use Database" "Delete Database" "Quit")
 while [[ "$option" != "Quit" ]] 

@@ -2,6 +2,41 @@
 
 # TO-DO: steps of creating new table:
 
+function validateTableName(){
+    valid=0     #true
+    IFS=' ' read -r -a array <<< $1;
+    if (( ${#array[@]} > 1 )); then 
+        printf "ERROR: Table name can not contain spaces.";
+        echo "ERROR: Table name can not contain spaces." >> log.out;
+        valid=1; #false
+    fi
+
+    if (( ${#array[@]} == 0 )); then 
+        printf "ERROR: Table name can not be empty.";
+        echo "ERROR: Table name can not be empty." >> log.out;
+        valid=1; #false
+    fi
+
+    # validate table name does not start with number
+    first="${array[0]:0:1}"
+    if [[ $first =~ [0-9] ]]; then
+        printf "ERROR: Table name can not begin with number.";
+        echo "ERROR: Table name can not begin with number." >> log.out;
+        valid=1; #false
+    fi
+
+
+    # validate table name has at least one letter
+    if [[ "$1" =~ [A-Za-z] ]]; then
+        echo "Valid table name" >> log.out;
+    else
+        printf "ERROR: Table name must contain at least one letter.";
+        echo "ERROR: Table name must contain at least one letter." >> log.out;
+        valid=1;    #false
+    fi
+
+    echo $valid;
+}
 
 createColumns(){
     read -p "Enter column name: " colName;
@@ -21,6 +56,14 @@ createColumns(){
 }
 
 read -p "Enter table name: " tableName;
+
+nameFlag=$(validateTableName "$tableName");
+
+if [[ $nameFlag == 0 ]]; then
+    echo "$nameFlag True";
+else
+    echo "$nameFlag False";
+fi
 
 if test -f "$currDB/$tableName"; then
     echo "table already exists!";
