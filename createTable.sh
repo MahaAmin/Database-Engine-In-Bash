@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# TO-DO: create table function
+# [DONE]: create table function
 
 # Steps of creating new table
 # [DONE] 1- Validate table name (noSapces, contains at least one letter, does not start with number)
