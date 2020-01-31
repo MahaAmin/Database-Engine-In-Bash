@@ -7,12 +7,12 @@ useDB_main_menu(){
     select option in "${options[@]}"
     do
         case $option in
-            "Show Tables") . ./showTables.sh;;
-            "Create New Table") . ./createTable.sh;;
-            "Delete Table") . ./deleteTable.sh;;
-            "Update Table") . ./updateTable.sh;;
-            "Display Table") . ./displayTable.sh;;
-            "Return To Main Menu") break;;
+            "Show Tables") . ./showTables.sh;break;;
+            "Create New Table") . ./createTable.sh;break;;
+            "Delete Table") . ./deleteTable.sh;break;;
+            "Update Table") . ./updateTable.sh;break;;
+            "Display Table") . ./displayTable.sh;break;;
+            "Return To Main Menu") . ./mainMenu.sh;break;;
             *) echo "Invalid option $REPLY";;
         esac
     done
