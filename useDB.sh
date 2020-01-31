@@ -12,7 +12,7 @@ useDB_main_menu(){
             "Delete Table") . ./deleteTable.sh;;
             "Update Table") . ./updateTable.sh;;
             "Display Table") . ./displayTable.sh;;
-            "Return To Main Menu") break;
+            "Return To Main Menu") break;;
             *) echo "Invalid option $REPLY";;
         esac
     done
@@ -30,5 +30,4 @@ then
     useDB_main_menu;
 else
     echo "Database does not exist.";
-    useDB_main_menu;
 fi
