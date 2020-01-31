@@ -25,7 +25,7 @@ read currDB;
 # check if database exists
 if [[ -d Databases/$currDB ]]
 then
-    export  currDB=Databases/$currDB;
+    export  currDB=$currDB;
     echo "$currDB is selected.";
     useDB_main_menu;
 else
