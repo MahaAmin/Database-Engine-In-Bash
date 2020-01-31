@@ -1,7 +1,7 @@
 #!/bin/bash
 
 useDB_main_menu(){
-    options=("Show Tables" "Create New Table" "Delete Table" "Update Table" "Display Table" "Return To Main Menu");
+    options=("Show Tables" "Create New Table" "Insert Into Table" "Delete Table" "Update Table" "Display Table" "Return To Main Menu");
      while [[ "$option" != "Return To Main Menu" ]] 
     do
     select option in "${options[@]}"
@@ -9,6 +9,7 @@ useDB_main_menu(){
         case $option in
             "Show Tables") . ./showTables.sh;break;;
             "Create New Table") . ./createTable.sh;break;;
+            "Insert Into Table") . ./insertIntoTable.sh;break;;
             "Delete Table") . ./deleteTable.sh;break;;
             "Update Table") . ./updateTable.sh;break;;
             "Display Table") . ./displayTable.sh;break;;
