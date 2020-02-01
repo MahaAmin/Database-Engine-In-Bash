@@ -7,3 +7,4 @@ if [ -d "$DIR" ] && [ "$(ls -A $DIR)" ]; then
 else 
     echo "No tables to show"
 fi
+
