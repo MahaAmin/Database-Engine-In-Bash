@@ -55,3 +55,23 @@ do
 	echo $i;
 done
 
+###################################################################################
+
+#-------------- Read file into array ----------------------------------------------
+IFS=$'\n' read -d '' -r -a lines < Databases/maha/Metadata/employee.metadata
+
+echo "Line 0: ${lines[0]}"
+echo "Line 1: ${lines[1]}"
+
+#---------------- declare array -------------------------------------------------
+
+declare -a array
+
+array+=("hi")	#adding element to array
+array+=("bye")
+
+for element in ${array[@]}
+do
+	echo $element;
+done
+#####################################################################################

@@ -2,18 +2,17 @@
 
 # TO-DO:
 # Steps to Insert new row in table:
-# 1- Read table name from user.
-# 2- Validate tableName (noSpaces, table-exists)
-# 3- For each row:
-#   3.1- For each column:
-#       3.1.1- Show column name
-#       3.1.2- Read new value from user
+# [DONE]1- Read table name from user.
+# [DONE]2- Validate tableName (noSpaces, table-exists)
+# [DONE]3- Get column names from table.metadata
+# [DONE]3- For each row:
+#   [DONE]3.1- For each column:
+#       [DONE]3.1.1- Show column name
+#       [DONE]3.1.2- Read new value from user
 #       3.1.3- Validate new value:
-#           3.1.3.1- check value matches column's datatype
-#           3.1.3.2- If column is PK --> value must be unique
-#   3.2- append new row (col1:col2:..) in Databases/$currDB/Data/$tableName
-# 4- Ask user if he/she wants to insert another row
-
+#           [DONE]3.1.3.1- check value matches column's datatype
+#           [DONE]3.1.3.2- If column is PK --> value must be unique
+#   [DONE]3.2- append new row (col1:col2:..) in Databases/$currDB/Data/$tableName
 
 function validateTableName(){
     # Function call: validateTableName "$tableName"
@@ -47,21 +46,96 @@ function tableExists(){
 }
 
 
+function insertRow(){
+    # read columns info from tableName.metadata into array
+    IFS=$'\n' read -d '' -r -a lines < "Databases/$currDB/Metadata/$tableName.metadata"
+
+    # new record
+    newRecord="";
+    errorFlag=0; #true
+
+    # loop over lines array to insert each column
+    for i in "${!lines[@]}"
+    do
+        IFS=':' read -r -a column <<< "${lines[i]}";
+        colName=${column[0]};
+        colDataType=${column[1]};
+        colPK=${column[2]};
+
+        #test flags
+        dataTypeFlag=0; #true
+        pkFlag=0;   #true
+
+        #read new column value from user
+        read -p "Enter $colName: " newColValue;
+        numRegex='^[0-9]+$'
+
+        # validate dataType
+        if [[ $colDataType == "number" ]]; then
+            if ! [[ $newColValue =~ $numRegex ]]; then
+                dataTypeFlag=1; #false
+                errorFlag=1; #false
+                echo "ERROR: Value must be a number.";
+            fi 
+        fi
+
+        # validate if PK
+        if [[ $colPK == "yes" ]]; then
+            # get all column data from Data/tableName
+            IFS=$'\n' read -d '' -r -a dataLines < "Databases/$currDB/Data/$tableName"  # all table
+            
+            #loop over column data to check pk if unique
+            for j in "${!dataLines[@]}";
+            do
+                IFS=':' read -r -a record <<< "${dataLines[$j]}"; # record(row)
+                if [[ ${record[i]} == $newColValue ]]; then
+                    pkFlag=1; #false(not-unique)
+                    errorFlag=1; #false
+                    echo "ERROR: Primary key must be unique.";
+                fi
+            done
+        fi
+
+
+        #if value valid add it to newRecord string
+        if [[ dataTypeFlag==0 && pkFlag==0 ]]; then
+            if [[ $i == 0 ]]; then
+                newRecord=$newColValue;
+            else
+                newRecord="$newRecord:$newColValue";
+            fi
+        else
+            echo "In-valid record";
+        fi
+    done
+
+
+    # append newRecord in Data/$tableName
+    if ! [[ $newRecord == "" ]]; then
+        if [[ $errorFlag == 0 ]]; then
+            if echo $newRecord >> "Databases/$currDB/Data/$tableName"; then
+                echo "Record stored succesfully.";
+            else
+                echo "ERROR: Failed to store record.";
+            fi
+        else
+            echo "ERROR: Failed to store record.";
+        fi
+    else
+        echo "ERROR: Record is empty.";
+    fi
+}
 
 # Read tableName from user
 read -p "Enter table name: " tableName;
-
-echo "DB: $currDB, Table:$tableName";
 
 # Validate tableName
 nameFlag=$(validateTableName "$tableName");
 tableExistsFlag=$(tableExists "$tableName");
 
-echo "nameFlag: $nameFlag, tableExistsFlag: $tableExistsFlag";
 
 if [ $nameFlag == 0 ] && [ $tableExistsFlag == 0 ]; then
-    echo "Valid table";
+    insertRow
 else
     echo "In-valid table name. Check log.out for more details.";
 fi
-
