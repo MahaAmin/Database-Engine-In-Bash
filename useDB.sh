@@ -42,6 +42,7 @@ useDB_main_menu(){
         case $option in
             "Show Tables") . ./showTables.sh;break ;;
             "Create New Table") . ./createTable.sh; break;;
+            "Insert Into Table") . ./insertIntoTable.sh; break;;
             "Delete Table") . ./deleteTable.sh; break ;;
             "Update Table") . ./updateTable.sh; break ;;
             "Display Table") . ./displayTable.sh; break ;;
