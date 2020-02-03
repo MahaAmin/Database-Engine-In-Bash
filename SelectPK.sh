@@ -23,8 +23,9 @@ ColumnNumData=$(awk -v rk="$Rpk" -F: '{ for (i=0; i<=NF; i++){if ($i==rk){print 
 rm -f aya.temp
 #check if word is found at the same pk column
 if [ $ColumnNumMetadata == $ColumnNumData ];  
-then   
-grep  $Rpk Databases/$currDB/Data/$TableName  | awk -F: '{print $0}'
+then  
+var1=$(grep -ow $Rpk Databases/$currDB/Data/$TableName)
+grep -w $Rpk Databases/$currDB/Data/$TableName  | awk -F: '{print $0}'
 else
 echo "No such value in PK column" 
 fi

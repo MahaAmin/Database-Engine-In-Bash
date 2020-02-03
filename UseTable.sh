@@ -1,5 +1,5 @@
 #!/bin/bash
-
+Use_Table(){
 options=("displayTable" "Select By PK" "Return To Main Menu");
 while [[ "$option" != "Return To Main Menu" ]]
 do
@@ -14,3 +14,6 @@ do
          esac
     done
     done
+}
+
+Use_Table;
