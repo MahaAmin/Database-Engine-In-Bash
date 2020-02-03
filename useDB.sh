@@ -34,7 +34,7 @@
 
 
 useDB_main_menu(){
-    options=("Show Tables" "Create New Table" "Insert Into Table" "Delete Table" "Update Table" "Display Table" "Return To Main Menu");
+    options=("Show Tables" "Create New Table" "Insert Into Table" "Delete Table" "Update Table" "UseTable" "Return To Main Menu");
      while [[ "$option" != "Return To Main Menu" ]] 
     do
     select option in "${options[@]}"
@@ -45,8 +45,8 @@ useDB_main_menu(){
             "Insert Into Table") . ./insertIntoTable.sh; break;;
             "Delete Table") . ./deleteTable.sh; break ;;
             "Update Table") . ./updateTable.sh; break ;;
-            "Display Table") . ./displayTable.sh; break ;;
-            "Return To Main Menu") ./mainMenu.sh; break ;;
+            "UseTable") . ./UseTable.sh; break ;;
+            "Return To Main Menu") . ./mainMenu.sh; exit $? ;;
             *) echo "Invalid option $REPLY";;
         esac
     done
@@ -64,5 +64,6 @@ then
     useDB_main_menu;
 else
     echo "Database does not exist.";
+    . ./mainMenu.sh
     
 fi
