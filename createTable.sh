@@ -101,7 +101,7 @@ function validateColumnName(){
 
 function createColumns(){
     read -p "Enter number of columns: " numCols;
-
+     
     for (( i=0; i<$numCols; i++ ))
     do
         colMetadata="";
@@ -127,6 +127,7 @@ function createColumns(){
 
             # create row containing column-info in table.metadata (colName:dataType:PK)
             echo $colMetadata >> "Databases/$currDB/Metadata/$tableName.metadata";
+            
         else
             echo "In-valid column name";
         fi
