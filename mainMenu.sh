@@ -12,7 +12,7 @@ do
 			"Create New Database"). ./createDB.sh; break ;;
 			"Use Database") . ./useDB.sh break ;;
 			"Delete Database") . ./deleteDB.sh; break ;;
-			"Quit")  break;;
+			"Quit")  break; exit $?;;
 			*) echo "Invalid option $REPLY";;
 		esac
 	done
