@@ -17,9 +17,7 @@ Table Operations:
 * Delete Table
 
 Update Table Operatins:
-* Add New Column
 * Delete Column
-* Update Cell Value
 * Delete Record
 
 Display Table Operations:
